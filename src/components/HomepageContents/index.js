@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import Link from '@docusaurus/Link';
 
 const FeatureList = [
   {
@@ -11,6 +12,7 @@ const FeatureList = [
         職歴や保有スキル等を紹介しています。
       </>
     ),
+    link: '/introduction',
   },
   {
     title: 'ドキュメント',
@@ -20,6 +22,7 @@ const FeatureList = [
         主に技術関連の備忘録やメモ等を掲載しています。
       </>
     ),
+    link: '/docs/intro',
   },
   {
     title: 'ブログ',
@@ -29,10 +32,11 @@ const FeatureList = [
         技術以外の記事を掲載しています。
       </>
     ),
+    link: '/blog',
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({Svg, title, description, link}) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
@@ -41,9 +45,28 @@ function Feature({Svg, title, description}) {
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
+        <Btn children="Go!" color="#25c2a0" url={link}>Go!</Btn>
       </div>
     </div>
   );
+}
+
+function Btn ({children, color, url}) {
+  return (
+    <Link
+      style={{
+        backgroundColor: color,
+        borderRadius: '20px',
+        color: '#fff',
+        padding: '10px',
+        cursor: 'pointer',
+        textDecoration: 'none',
+      }}
+      to={url}
+    >
+      {children}
+    </Link>
+  )
 }
 
 export default function HomepageContents() {
