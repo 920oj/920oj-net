@@ -4,8 +4,7 @@
 require('dotenv').config()
 const env = process.env
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const {themes: prismThemes} = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -25,7 +24,11 @@ const config = {
   projectName: '920oj-net', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -57,10 +60,7 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-        gtag: {
-          trackingID: env.GTAG_ID,
-          anonymizeIP: false,
-        },
+        ...(env.GTAG_ID ? {gtag: {trackingID: env.GTAG_ID, anonymizeIP: false}} : {}),
       }),
     ],
   ],
@@ -133,8 +133,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} 920oj.net. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
       colorMode: {
         defaultMode: 'light',
